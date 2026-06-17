@@ -47,7 +47,7 @@ if uploaded_file is not None:
             Text: {raw_text[:3000]}
             """
             completion = client.chat.completions.create(
-                model="llama-3.1-70b-versatile",
+                model="llama-3.3-70b-versatile",
                 messages=[{"role": "user", "content": extraction_prompt}],
                 temperature=0.1
             )
@@ -74,7 +74,7 @@ if uploaded_file is not None:
                 Follow up with a brief 'REAL FACTS' section outlining the true historical data.
                 """
                 verdict_comp = client.chat.completions.create(
-                    model="llama-3.1-70b-versatile",
+                    model="llama-3.3-70b-versatile",
                     messages=[{"role": "user", "content": verification_prompt}],
                     temperature=0.1
                 )
