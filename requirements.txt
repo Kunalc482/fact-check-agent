@@ -3,3 +3,4 @@ groq
 langchain-community
 langchain-core
 pdfplumber
+duckduckgo-search
