@@ -32,7 +32,7 @@ if uploaded_file is not None:
 
 
 
-Extract individual statistical data strings
+        # Extract individual statistical data strings
         with st.spinner("🧠 Step 2: LLM Brain is locating data claims..."):
             extraction_prompt = f"""
             Extract up to 3 major statistical, financial, or dated claims from this text.
