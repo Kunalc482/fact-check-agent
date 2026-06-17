@@ -4,8 +4,14 @@ from groq import Groq
 from duckduckgo_search import DDGS
 import json
 
-# Connect to the free search engine tool
-search_tool = DuckDuckGoSearchRun()
+# Setup direct search engine wrapper (Bypasses the Python 3.14 LangChain bug)
+def direct_web_search(query_text):
+    try:
+        with DDGS() as ddgs:
+            results = [r['body'] for r in ddgs.text(query_text, max_results=2)]
+            return " ".join(results) if results else "No direct web tracking matches found."
+    except Exception as e:
+        return "Search temporary unavailable, assessing via primary base logic."
 
 # Securely pull the Groq Brain Key from the cloud settings
 if "GROQ_API_KEY" in st.secrets:
@@ -52,15 +58,12 @@ if uploaded_file is not None:
 
         st.subheader("📊 Automated Verification Audit Report")
         
-        # Layer 3 & 4: Route claims to the live search engine tool and display visual results
+        # Layer 3 & 4: Route claims to the live search tool and display visual results
         for claim in claims:
             if not claim: 
                 continue
             with st.spinner(f"🔍 Searching live web for: '{claim}'..."):
-                try:
-                    web_info = search_tool.run(claim)
-                except:
-                    web_info = "No direct web tracking matches found."
+                web_info = direct_web_search(claim)
                 
                 verification_prompt = f"""
                 Compare the PDF Claim against the Live Web Info.
