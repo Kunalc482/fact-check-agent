@@ -1,7 +1,7 @@
 import streamlit as st
 import pdfplumber
 from groq import Groq
-from langchain_community.tools import DuckDuckGoSearchRun
+from duckduckgo_search import DDGS
 import json
 
 # Connect to the free search engine tool
